@@ -35,8 +35,6 @@
   <a href="#license">License</a>
 </p>
 
-![screenshot](screenshot.png)
-
 ## About
 
 **Easy!Appointments** is a highly customizable web application that allows customers to book appointments with you 
