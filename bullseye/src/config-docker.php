@@ -30,28 +30,28 @@ class Config {
     // GENERAL SETTINGS
     // ------------------------------------------------------------------------
 
-    const BASE_URL      = getenv('BASE_URL');
-    const LANGUAGE      = getenv('LANGUAGE');
-    const DEBUG_MODE    = getenv('DEBUG_MODE');
+    const BASE_URL      = "$BASE_URL";
+    const LANGUAGE      = "$LANGUAGE";
+    const DEBUG_MODE    = $DEBUG_MODE;
 
     // ------------------------------------------------------------------------
     // DATABASE SETTINGS
     // ------------------------------------------------------------------------
 
-    const DB_HOST       = getenv('DB_HOST');
-    const DB_NAME       = getenv('DB_NAME');
-    const DB_USERNAME   = getenv('DB_USER');
-    const DB_PASSWORD   = getenv('DB_PASSWORD');
+    const DB_HOST       = "$DB_HOST";
+    const DB_NAME       = "$DB_NAME";
+    const DB_USERNAME   = "$DB_USER";
+    const DB_PASSWORD   = "$DB_PASSWORD";
 
     // ------------------------------------------------------------------------
     // GOOGLE CALENDAR SYNC
     // ------------------------------------------------------------------------
 
-    const GOOGLE_SYNC_FEATURE   = getenv('GOOGLE_SYNC_FEATURE'); // Enter TRUE or FALSE
-    const GOOGLE_PRODUCT_NAME   = getenv('GOOGLE_PRODUCT_NAME');
-    const GOOGLE_CLIENT_ID      = getenv('GOOGLE_CLIENT_ID');
-    const GOOGLE_CLIENT_SECRET  = getenv('GOOGLE_CLIENT_SECRET');
-    const GOOGLE_API_KEY        = getenv('GOOGLE_API_KEY');
+    const GOOGLE_SYNC_FEATURE   = $GOOGLE_SYNC_FEATURE; // Enter TRUE or FALSE
+    const GOOGLE_PRODUCT_NAME   = "$GOOGLE_PRODUCT_NAME";
+    const GOOGLE_CLIENT_ID      = "$GOOGLE_CLIENT_ID";
+    const GOOGLE_CLIENT_SECRET  = "$GOOGLE_CLIENT_SECRET";
+    const GOOGLE_API_KEY        = "$GOOGLE_API_KEY";
 }
 
 /* End of file config.php */

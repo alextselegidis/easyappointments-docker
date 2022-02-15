@@ -5,8 +5,9 @@ services:
     build: .
     ports:
         - 8080:80
-    volumes:
-      - ./config.php:/var/www/html/config.php
+    env_file: web.env
+    #volumes:
+    #  - ./config.php:/var/www/html/config.php
 
   db:
     image: mariadb:10.7

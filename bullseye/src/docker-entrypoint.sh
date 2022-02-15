@@ -2,7 +2,7 @@
 set -eu
 
 if [ ! -f /var/www/html/config.php ]; then
-    cp /var/www/html/config-docker.php /var/www/html/config.php
+    envsubst < /var/www/html/config-docker.php > /var/www/html/config.php
 fi
 
 # first arg is `-f` or `--some-option`
