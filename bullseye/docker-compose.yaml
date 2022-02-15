@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    ports:
+        - 8080:80
+    env_file: web.env
+    #volumes:
+    #  - ./config.php:/var/www/html/config.php
+
+  db:
+    image: mariadb:10.7
+    #volumes:
+    #  - ./data/db_data:/var/lib/mysql
+    restart: always
+    env_file: db.env
