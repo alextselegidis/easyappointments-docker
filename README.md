@@ -61,41 +61,42 @@ The application is designed to be flexible enough so that it can handle any ente
 To clone and run this application, you'll need [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) and [Composer](https://getcomposer.org) installed on your computer. From your command line:
 
 ```bash
-# Clone this repository
-$ git clone https://github.com/alextselegidis/easyappointments.git
+# Start a MySQL instance
+$ docker run -d --name test-db -e MYSQL_ROOT_PASSWORD=secret -e MYSQL_DATABASE=easyappointments mysql:latest
 
-# Go into the repository
-$ cd easyappointments
-
-# Install dependencies
-$ npm install && composer install
-
-# Start the file watcher
-$ npm start
+# Pull and run the app
+$ docker run --name test-app -d --link test-db:db -p 80:80 -e DB_HOST=db -e DB_NAME=easyappointments -e DB_USERNAME=root -e DB_PASSWORD=secret alextselegidis/easyappointments
 ```
 
 Note: If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
 
-You can build the files by running `npm run build`. This command will bundle everything to a `build` directory.
+## Docker Compose
 
-## Installation
+You can use the following docker-compose.yml file to locally set up Easy!Appointments with a MySQL database: 
 
-You will need to perform the following steps to install the application on your server:
+```
+version: '3.1'
+services:
+  easyapointments:
+    image: 'easyappointments:1.4.3'
+    environment:
+      - BASE_URL=http://localhost
+      - DEBUG_MODE=TRUE
+      - DB_HOST=mysql
+      - DB_NAME=easyappointments
+      - DB_USERNAME=root
+      - DB_PASSWORD=secret
+    ports:
+      - '80:80'
+  mysql:
+    image: 'mysql:8.0'
+    volumes:
+      - './docker/mysql:/var/lib/mysql'
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=easyappointments
 
-* Make sure that your server has Apache/Nginx, PHP and MySQL installed.
-* Create a new database (or use an existing one).
-* Copy the "easyappointments" source folder on your server.
-* Make sure that the "storage" directory is writable.
-* Rename the "config-sample.php" file to "config.php" and update its contents based on your environment.
-* Open the browser on the Easy!Appointments URL and follow the installation guide.
-
-That's it! You can now use Easy!Appointments at your will.
-
-You will find the latest release at [easyappointments.org](https://easyappointments.org).
-If you have problems installing or configuring the application visit the
-[official support group](https://groups.google.com/forum/#!forum/easy-appointments).
-You can also report problems on the [issues page](https://github.com/alextselegidis/easyappointments/issues)
-and help the development progress.
+```
 
 ## License 
 
@@ -106,8 +107,3 @@ Code Licensed Under [GPL v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) | C
 Website [alextselegidis.com](https://alextselegidis.com) &nbsp;&middot;&nbsp;
 GitHub [alextselegidis](https://github.com/alextselegidis) &nbsp;&middot;&nbsp;
 Twitter [@alextselegidis](https://twitter.com/AlexTselegidis)
-
-###### More Projects On Github
-###### ⇾ [Plainpad &middot; Self Hosted Note Taking App](https://github.com/alextselegidis/plainpad)
-###### ⇾ [Questionful &middot; Web Questionnaires Made Easy](https://github.com/alextselegidis/questionful)
-###### ⇾ [Integravy &middot; Service Orchestration At Your Fingertips](https://github.com/alextselegidis/integravy)
