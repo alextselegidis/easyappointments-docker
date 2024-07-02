@@ -29,4 +29,4 @@ DEFAULT_VERSION=1.4.3
 
 VERSION="${1:-$DEFAULT_VERSION}"
 
-docker build --tag easyappointments:${VERSION} --build-arg VERSION=${VERSION} .
+docker build --tag easyappointments:${VERSION} --build-arg VERSION=${VERSION} --platform linux/amd64 .

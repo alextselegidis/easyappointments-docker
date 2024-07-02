@@ -1,4 +1,4 @@
-FROM php:8.0-apache
+FROM php:8.2-apache
 
 MAINTAINER Alex Tselegidis (alextselegidis.com)
 
@@ -27,7 +27,7 @@ COPY ./assets/docker-entrypoint.sh /usr/local/bin
 RUN apt-get update \
     && apt-get install -y libfreetype-dev libjpeg62-turbo-dev libpng-dev unzip wget nano \
 	&& curl -sSL https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions -o - | sh -s \
-      curl gd mbstring mysqli xdebug gettext \
+      curl gd intl ldap mbstring mysqli xdebug odbc pdo pdo_mysql xml zip exif gettext bcmath csv event imap inotify mcrypt redis \
     && docker-php-ext-enable xdebug \
     && wget https://github.com/alextselegidis/easyappointments/releases/download/${VERSION}/easyappointments-${VERSION}.zip \
     && unzip easyappointments-${VERSION}.zip \
