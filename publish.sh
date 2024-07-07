@@ -15,11 +15,11 @@
 #
 # Usage:
 #
-#  ./deploy.sh <version>
+#  ./publish.sh <version>
 #
 # Example:
 #
-#   ./deploy.sh 1.4.3
+#   ./publish.sh 1.4.3
 #
 
 DEFAULT_VERSION=1.4.3
