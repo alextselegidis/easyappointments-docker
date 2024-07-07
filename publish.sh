@@ -19,10 +19,10 @@
 #
 # Example:
 #
-#   ./publish.sh 1.4.3
+#   ./publish.sh 1.5.0
 #
 
-DEFAULT_VERSION=1.4.3
+DEFAULT_VERSION=1.5.0
 
 VERSION="${1:-$DEFAULT_VERSION}"
 
