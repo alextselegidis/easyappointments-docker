@@ -2,7 +2,8 @@ FROM php:8.2-apache
 
 MAINTAINER Alex Tselegidis (alextselegidis.com)
 
-ENV VERSION="1.5.0"
+ARG VERSION="1.5.0"
+
 ENV BASE_URL="http://localhost"
 ENV LANGUAGE="english"
 ENV DEBUG_MODE="FALSE"
