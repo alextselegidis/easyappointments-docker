@@ -75,7 +75,6 @@ Note: If you're using Linux Bash for Windows, [see this guide](https://www.howto
 You can use the following docker-compose.yml file to locally set up Easy!Appointments with a MySQL database: 
 
 ```
-version: '3.1'
 services:
   easyapointments:
     image: 'alextselegidis/easyappointments:latest'
