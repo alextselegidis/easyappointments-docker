@@ -78,7 +78,7 @@ You can use the following docker-compose.yml file to locally set up Easy!Appoint
 version: '3.1'
 services:
   easyapointments:
-    image: 'alextselegidis/easyappointments:1.5.0'
+    image: 'alextselegidis/easyappointments:latest'
     environment:
       - BASE_URL=http://localhost
       - DEBUG_MODE=TRUE
