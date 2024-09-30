@@ -26,7 +26,7 @@ COPY ./assets/99-overrides.ini /usr/local/etc/php/conf.d
 COPY ./assets/docker-entrypoint.sh /usr/local/bin
 
 RUN apt-get update \
-    && apt-get install -y libfreetype-dev libjpeg62-turbo-dev libpng-dev unzip wget nano \
+    && apt-get install -y libfreetype-dev libjpeg62-turbo-dev libpng-dev unzip wget nano sendmail \
 	&& curl -sSL https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions -o - | sh -s \
       curl gd intl ldap mbstring mysqli xdebug odbc pdo pdo_mysql xml zip exif gettext bcmath csv event imap inotify mcrypt redis \
     && docker-php-ext-enable xdebug \
