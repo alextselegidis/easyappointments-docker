@@ -75,9 +75,16 @@ Note: If you're using Linux Bash for Windows, [see this guide](https://www.howto
 You can use the following docker-compose.yml file to locally set up Easy!Appointments with a MySQL database: 
 
 ```
+name: easyappointments
+
 services:
   easyapointments:
     image: 'alextselegidis/easyappointments:latest'
+    container_name: easyappointments
+    volumes:
+      - easyappointments_config:/var/www/html/application/config
+      - easyappointments_backups:/var/www/html/storage/backups
+      - easyappointments_logs:/var/www/html/storage/logs
     environment:
       - BASE_URL=http://localhost
       - DEBUG_MODE=TRUE
@@ -89,12 +96,20 @@ services:
       - '80:80'
   mysql:
     image: 'mysql:8.0'
+    container_name: easyappointments_db
     volumes:
       - './docker/mysql:/var/lib/mysql'
     environment:
       - MYSQL_ROOT_PASSWORD=secret
       - MYSQL_DATABASE=easyappointments
 
+volumes:
+  easyappointments_config:
+    name: easyappointments_config
+  easyappointments_backups:
+    name: easyappointments_backup
+  easyappointments_logs:
+    name: easyappointments_logs
 ```
 
 ## License 
