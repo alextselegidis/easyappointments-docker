@@ -94,7 +94,6 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=secret
       - MYSQL_DATABASE=easyappointments
-
 ```
 
 ## License 

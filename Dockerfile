@@ -26,13 +26,21 @@ COPY ./assets/99-overrides.ini /usr/local/etc/php/conf.d
 COPY ./assets/docker-entrypoint.sh /usr/local/bin
 
 RUN apt-get update \
-    && apt-get install -y libfreetype-dev libjpeg62-turbo-dev libpng-dev unzip wget nano sendmail \
+    && apt-get install -y libfreetype-dev libjpeg62-turbo-dev libpng-dev unzip wget nano ssmtp mailutils \
 	&& curl -sSL https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions -o - | sh -s \
       curl gd intl ldap mbstring mysqli xdebug odbc pdo pdo_mysql xml zip exif gettext bcmath csv event imap inotify mcrypt redis \
     && docker-php-ext-enable xdebug \
     && wget https://github.com/alextselegidis/easyappointments/releases/download/${VERSION}/easyappointments-${VERSION}.zip \
     && unzip easyappointments-${VERSION}.zip \
     && rm easyappointments-${VERSION}.zip \
+    && echo "hostname=localhost.localdomain" > /etc/ssmtp/ssmtp.conf \
+    && echo "root=root@example.org" >> /etc/ssmtp/ssmtp.conf \
+    && echo "mailhub=mailpit:1025" >> /etc/ssmtp/ssmtp.conf \
+    && echo "AuthUser=user" >> /etc/ssmtp/ssmtp.conf \
+    && echo "AuthPassword=password" >> /etc/ssmtp/ssmtp.conf \
+    && echo "FromLineOverride=YES" >> /etc/ssmtp/ssmtp.conf \
+    && echo "UseSTARTTLS=tls" >> /etc/ssmtp/ssmtp.conf \
+    && echo "sendmail_path=/usr/sbin/ssmtp -t" >> /usr/local/etc/php/conf.d/php-sendmail.ini \
     && echo "alias ll=\"ls -al\"" >> /root/.bashrc \
     && apt-get -y autoremove \
     && apt-get clean \

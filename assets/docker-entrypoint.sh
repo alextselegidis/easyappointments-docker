@@ -21,6 +21,8 @@
 #  ./docker-entrypoint.sh
 #
 
+# Config
+
 cp config-sample.php config.php
 
 sed -i "s|const BASE_URL = 'http://localhost';|const BASE_URL = '$BASE_URL';|g" config.php
@@ -37,5 +39,15 @@ sed -i "s|const GOOGLE_PRODUCT_NAME = '';|const GOOGLE_PRODUCT_NAME = '$GOOGLE_G
 sed -i "s|const GOOGLE_CLIENT_ID = '';|const GOOGLE_CLIENT_ID = '$GOOGLE_CLIENT_ID';|g" config.php
 sed -i "s|const GOOGLE_CLIENT_SECRET = '';|const GOOGLE_CLIENT_SECRET = '$GOOGLE_CLIENT_SECRET';|g" config.php
 sed -i "s|const GOOGLE_API_KEY = '';|const GOOGLE_API_KEY = '$GOOGLE_API_KEY';|g" config.php
+
+# SMTP 
+
+sed -i "s|hostname=localhost.localdomain|hostname='$SMTP_HOST'|g" /etc/ssmtp/ssmtp.conf
+sed -i "s|root=root@example.org|root='$SMTP_FROM'|g" /etc/ssmtp/ssmtp.conf
+sed -i "s|mailhub=mailpit:1025|mailhub='$SMTP_HOST':'$SMTP_PORT'|g" /etc/ssmtp/ssmtp.conf
+sed -i "s|AuthUser=user|AuthUser='$SMTP_USER'|g" /etc/ssmtp/ssmtp.conf
+sed -i "s|AuthPassword=password|AuthPassword='$SMTP_PASSWORD'|g" /etc/ssmtp/ssmtp.conf
+sed -i "s|UseSTARTTLS=tls|UseSTARTTLS='$SMTP_PROTOCOL'|g" /etc/ssmtp/ssmtp.conf
+
 
 apache2-foreground
