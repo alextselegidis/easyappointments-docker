@@ -76,8 +76,12 @@ You can use the following docker-compose.yml file to locally set up Easy!Appoint
 
 ```
 services:
+
   easyapointments:
-    image: 'alextselegidis/easyappointments:latest'
+    image: alextselegidis/easyappointments:latest
+    restart: always
+    ports:
+      - '80:80'
     environment:
       - BASE_URL=http://localhost
       - DEBUG_MODE=TRUE
@@ -85,15 +89,24 @@ services:
       - DB_NAME=easyappointments
       - DB_USERNAME=root
       - DB_PASSWORD=secret
-    ports:
-      - '80:80'
-  mysql:
-    image: 'mysql:8.0'
     volumes:
-      - './docker/mysql:/var/lib/mysql'
+      - easyappointments_config:/var/www/html/application/config
+      - easyappointments_storage:/var/www/html/storage
+    
+  mysql:
+    image: mysql:8.0
+    restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=secret
       - MYSQL_DATABASE=easyappointments
+    volumes:
+      - mysql:/var/lib/mysql
+      
+volumes:
+  easyappointments_config:
+  easyappointments_storage:
+  mysql:
+
 ```
 
 ## License 
