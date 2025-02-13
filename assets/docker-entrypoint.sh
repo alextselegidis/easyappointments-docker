@@ -23,6 +23,8 @@
 
 # Config
 
+# TODO: Generate new file every time instead of seding becaus ethat will only wrok once
+
 cp config-sample.php config.php
 
 sed -i "s|const BASE_URL = 'http://localhost';|const BASE_URL = '$BASE_URL';|g" config.php
@@ -40,14 +42,18 @@ sed -i "s|const GOOGLE_CLIENT_ID = '';|const GOOGLE_CLIENT_ID = '$GOOGLE_CLIENT_
 sed -i "s|const GOOGLE_CLIENT_SECRET = '';|const GOOGLE_CLIENT_SECRET = '$GOOGLE_CLIENT_SECRET';|g" config.php
 sed -i "s|const GOOGLE_API_KEY = '';|const GOOGLE_API_KEY = '$GOOGLE_API_KEY';|g" config.php
 
-# SMTP 
+# SMTP
 
-sed -i "s|hostname=localhost.localdomain|hostname='$SMTP_HOST'|g" /etc/ssmtp/ssmtp.conf
-sed -i "s|root=root@example.org|root='$SMTP_FROM'|g" /etc/ssmtp/ssmtp.conf
-sed -i "s|mailhub=mailpit:1025|mailhub='$SMTP_HOST':'$SMTP_PORT'|g" /etc/ssmtp/ssmtp.conf
-sed -i "s|AuthUser=user|AuthUser='$SMTP_USER'|g" /etc/ssmtp/ssmtp.conf
-sed -i "s|AuthPassword=password|AuthPassword='$SMTP_PASSWORD'|g" /etc/ssmtp/ssmtp.conf
-sed -i "s|UseSTARTTLS=tls|UseSTARTTLS='$SMTP_PROTOCOL'|g" /etc/ssmtp/ssmtp.conf
+cat <<EOF >/etc/ssmtp/ssmtp.conf
+root=${SMTP_FROM}
+mailhub=${SMTP_HOST}:${SMTP_PORT}
+AuthUser=${SMTP_USER}
+AuthPass=${SMTP_PASSWORD}
+UseTLS=${SMTP_TLS}
+UseSTARTTLS=${SMTP_TLS}
+FromLineOverride=YES
+EOF
 
+# TODO: Need to generate the email contents because the from address is the company setting instead of the ssmtpconf setting
 
 apache2-foreground
