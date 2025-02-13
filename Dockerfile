@@ -2,7 +2,7 @@ FROM php:8.2-apache
 
 MAINTAINER Alex Tselegidis (alextselegidis.com)
 
-ARG VERSION="1.5.0"
+ARG VERSION
 
 ENV BASE_URL="http://localhost"
 ENV LANGUAGE="english"
@@ -16,6 +16,12 @@ ENV GOOGLE_PRODUCT_NAME=""
 ENV GOOGLE_CLIENT_ID=""
 ENV GOOGLE_CLIENT_SECRET=""
 ENV GOOGLE_API_KEY=""
+ENV SMTP_HOST="smtp.example.org"
+ENV SMTP_PORT="587"
+ENV SMTP_USER=""
+ENV SMTP_PASSWORD=""
+ENV SMTP_FROM="info@example.org"
+ENV SMTP_TLS="YES"
 
 EXPOSE 80
 
@@ -33,13 +39,6 @@ RUN apt-get update \
     && wget https://github.com/alextselegidis/easyappointments/releases/download/${VERSION}/easyappointments-${VERSION}.zip \
     && unzip easyappointments-${VERSION}.zip \
     && rm easyappointments-${VERSION}.zip \
-    && echo "hostname=localhost.localdomain" > /etc/ssmtp/ssmtp.conf \
-    && echo "root=root@example.org" >> /etc/ssmtp/ssmtp.conf \
-    && echo "mailhub=mailpit:1025" >> /etc/ssmtp/ssmtp.conf \
-    && echo "AuthUser=user" >> /etc/ssmtp/ssmtp.conf \
-    && echo "AuthPassword=password" >> /etc/ssmtp/ssmtp.conf \
-    && echo "FromLineOverride=YES" >> /etc/ssmtp/ssmtp.conf \
-    && echo "UseSTARTTLS=tls" >> /etc/ssmtp/ssmtp.conf \
     && echo "sendmail_path=/usr/sbin/ssmtp -t" >> /usr/local/etc/php/conf.d/php-sendmail.ini \
     && echo "alias ll=\"ls -al\"" >> /root/.bashrc \
     && apt-get -y autoremove \
