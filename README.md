@@ -90,8 +90,7 @@ services:
       - DB_USERNAME=root
       - DB_PASSWORD=secret
     volumes:
-      - easyappointments_config:/var/www/html/application/config
-      - easyappointments_storage:/var/www/html/storage
+      - easyappointments:/var/www/html
     
   mysql:
     image: mysql:8.0
@@ -103,8 +102,7 @@ services:
       - mysql:/var/lib/mysql
       
 volumes:
-  easyappointments_config:
-  easyappointments_storage:
+  easyappointments:
   mysql:
 
 ```
