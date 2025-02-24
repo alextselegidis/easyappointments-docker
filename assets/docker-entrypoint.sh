@@ -23,8 +23,6 @@
 
 # Config
 
-# TODO: Generate new file every time instead of seding becaus ethat will only wrok once
-
 cp config-sample.php config.php
 
 sed -i "s|const BASE_URL = 'http://localhost';|const BASE_URL = '$BASE_URL';|g" config.php
@@ -45,15 +43,38 @@ sed -i "s|const GOOGLE_API_KEY = '';|const GOOGLE_API_KEY = '$GOOGLE_API_KEY';|g
 # SMTP
 
 cat <<EOF >/etc/ssmtp/ssmtp.conf
-root=${SMTP_FROM}
+root=${SMTP_FROM_ADDRESS}
 mailhub=${SMTP_HOST}:${SMTP_PORT}
-AuthUser=${SMTP_USER}
+AuthUser=${SMTP_USERNAME}
 AuthPass=${SMTP_PASSWORD}
 UseTLS=${SMTP_TLS}
 UseSTARTTLS=${SMTP_TLS}
 FromLineOverride=YES
 EOF
 
-# TODO: Need to generate the email contents because the from address is the company setting instead of the ssmtpconf setting
+cat <<EOF >/var/www/html/application/config/email.php
+<?php defined('BASEPATH') or exit('No direct script access allowed');
+
+// Add custom values by settings them to the $config array.
+// Example: $config['smtp_host'] = 'smtp.gmail.com';
+// @link https://codeigniter.com/user_guide/libraries/email.html
+
+\$config['useragent'] = 'Easy!Appointments';
+\$config['protocol'] = 'mail'; // or 'smtp'
+\$config['mailtype'] = 'html'; // or 'text'
+\$config['smtp_debug'] = '0'; // or '1'
+\$config['smtp_auth'] = ${SMTP_AUTH}; //or FALSE for anonymous relay.
+\$config['smtp_host'] = '${SMTP_HOST}';
+\$config['smtp_user'] = '${SMTP_USERNAME}';
+\$config['smtp_pass'] = '${SMTP_PASSWORD}';
+\$config['smtp_crypto'] = '${SMTP_PROTOCOL}'; // or 'tls'
+\$config['smtp_port'] = ${SMTP_PORT};
+\$config['from_name'] = '${SMTP_FROM_NAME}';
+\$config['from_address'] = '${SMTP_FROM_ADDRESS}';
+\$config['reply_to'] = '${SMTP_REPLY_TO_ADDRESS}';
+\$config['crlf'] = "\r\n";
+\$config['newline'] = "\r\n";
+EOF
+
 
 apache2-foreground
