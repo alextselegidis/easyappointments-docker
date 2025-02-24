@@ -107,6 +107,21 @@ volumes:
 
 ```
 
+## SMTP 
+
+You can use the following SMTP environment variables 
+
+- SMTP_HOST="smtp.example.org"
+- SMTP_PORT="587"
+- SMTP_AUTH="1"
+- SMTP_USERNAME=""
+- SMTP_PASSWORD=""
+- SMTP_FROM_ADDRESS="info@example.org"
+- SMTP_FROM_NAME="Example"
+- SMTP_REPLY_TO_ADDRESS="info@example.org"
+- SMTP_PROTOCOL="tls"
+- SMTP_TLS="YES"
+
 ## License 
 
 Code Licensed Under [GPL v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) | Content Under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
