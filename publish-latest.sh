@@ -26,6 +26,6 @@ DEFAULT_VERSION=1.5.0
 
 VERSION="${1:-$DEFAULT_VERSION}"
 
-docker tag easyappointments:$VERSION alextselegidis/easyappointments:latest
+docker tag alextselegidis/easyappointments:$VERSION alextselegidis/easyappointments:latest
 
 docker push alextselegidis/easyappointments:latest
