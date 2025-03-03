@@ -25,7 +25,7 @@ ENV SMTP_FROM_ADDRESS="info@example.org"
 ENV SMTP_FROM_NAME="Example"
 ENV SMTP_REPLY_TO_ADDRESS="info@example.org"
 ENV SMTP_PROTOCOL="tls"
-ENV SMTP_TLS="YES"
+ENV SMTP_TLS="on"
 
 EXPOSE 80
 
@@ -36,14 +36,14 @@ COPY ./assets/99-overrides.ini /usr/local/etc/php/conf.d
 COPY ./assets/docker-entrypoint.sh /usr/local/bin
 
 RUN apt-get update \
-    && apt-get install -y libfreetype-dev libjpeg62-turbo-dev libpng-dev unzip wget nano ssmtp mailutils \
+    && apt-get install -y libfreetype-dev libjpeg62-turbo-dev libpng-dev unzip wget nano msmtp mailutils \
 	&& curl -sSL https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions -o - | sh -s \
       curl gd intl ldap mbstring mysqli xdebug odbc pdo pdo_mysql xml zip exif gettext bcmath csv event imap inotify mcrypt redis \
     && docker-php-ext-enable xdebug \
     && wget https://github.com/alextselegidis/easyappointments/releases/download/${VERSION}/easyappointments-${VERSION}.zip \
     && unzip easyappointments-${VERSION}.zip \
     && rm easyappointments-${VERSION}.zip \
-    && echo "sendmail_path=/usr/sbin/ssmtp -t" >> /usr/local/etc/php/conf.d/php-sendmail.ini \
+    && echo "sendmail_path=/usr/sbin/msmtp -t" >> /usr/local/etc/php/conf.d/php-sendmail.ini \
     && echo "alias ll=\"ls -al\"" >> /root/.bashrc \
     && apt-get -y autoremove \
     && apt-get clean \

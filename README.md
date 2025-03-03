@@ -111,6 +111,7 @@ volumes:
 
 You can use the following SMTP environment variables 
 
+```
 - SMTP_HOST="smtp.example.org"
 - SMTP_PORT="587"
 - SMTP_AUTH="1"
@@ -120,7 +121,8 @@ You can use the following SMTP environment variables
 - SMTP_FROM_NAME="Example"
 - SMTP_REPLY_TO_ADDRESS="info@example.org"
 - SMTP_PROTOCOL="tls"
-- SMTP_TLS="YES"
+- SMTP_TLS="on"
+```
 
 ## License 
 

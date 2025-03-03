@@ -42,14 +42,17 @@ sed -i "s|const GOOGLE_API_KEY = '';|const GOOGLE_API_KEY = '$GOOGLE_API_KEY';|g
 
 # SMTP
 
-cat <<EOF >/etc/ssmtp/ssmtp.conf
-root=${SMTP_FROM_ADDRESS}
-mailhub=${SMTP_HOST}:${SMTP_PORT}
-AuthUser=${SMTP_USERNAME}
-AuthPass=${SMTP_PASSWORD}
-UseTLS=${SMTP_TLS}
-UseSTARTTLS=${SMTP_TLS}
-FromLineOverride=YES
+cat <<EOF >/etc/msmtprc
+account default
+host ${SMTP_HOST}
+port ${SMTP_PORT}
+from ${SMTP_FROM_ADDRESS}
+auth on
+user ${SMTP_USERNAME}
+password ${SMTP_PASSWORD}
+tls ${SMTP_TLS}
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+logfile ~/.msmtp.log
 EOF
 
 cat <<EOF >/var/www/html/application/config/email.php
