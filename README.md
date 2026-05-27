@@ -96,9 +96,7 @@ services:
       - MAIL_FROM_ADDRESS=info@example.org
       - MAIL_FROM_NAME=Example
       - MAIL_REPLY_TO_ADDRESS=info@example.org
-    volumes:
-      - easyappointments:/var/www/html
-    
+
   mysql:
     image: mysql:8.0
     restart: always
@@ -109,7 +107,6 @@ services:
       - mysql:/var/lib/mysql
       
 volumes:
-  easyappointments:
   mysql:
 
 ```
