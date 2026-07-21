@@ -45,6 +45,9 @@ RUN apt-get update \
     && unzip easyappointments-${VERSION}.zip \
     && rm easyappointments-${VERSION}.zip \
     && echo "alias ll=\"ls -al\"" >> /root/.bashrc \
+    && wget -qO /usr/local/share/ca-certificates/isrg-root-yr.crt https://letsencrypt.org/certs/gen-y/root-yr.pem \
+    && wget -qO /usr/local/share/ca-certificates/isrg-root-ye.crt https://letsencrypt.org/certs/gen-y/root-ye.pem \
+    && update-ca-certificates \
     && apt-get -y autoremove \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
