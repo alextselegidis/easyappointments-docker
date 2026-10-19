@@ -19,10 +19,10 @@
 #
 # Example:
 #
-#   ./docker-publish.sh 1.5.0
+#   ./docker-publish.sh 1.6.1
 #
 
-DEFAULT_VERSION=1.5.0
+DEFAULT_VERSION=1.6.1
 
 VERSION="${1:-$DEFAULT_VERSION}"
 
