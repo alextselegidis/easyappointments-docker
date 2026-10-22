@@ -1,4 +1,4 @@
-FROM php:8.2-apache
+FROM php:8.5.12-apache
 
 MAINTAINER Alex Tselegidis (alextselegidis.com)
 
